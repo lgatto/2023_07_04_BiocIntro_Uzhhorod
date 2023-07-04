@@ -267,8 +267,5 @@ na.omit(x)
 
 x[complete.cases(x)]
 
-## start 16:53
-
-
 
 
