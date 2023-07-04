@@ -176,8 +176,98 @@ x[length(x)]
 ## "protein", and "dna" using 
 ## molecules.
 
+molecules[c(1, 1, 2, 3, 1)]
+
+c("dna", molecules, "dna")
+
 ## -----------------------
-## 
+## Conditional subsetting
+
+weight <- c(56, 67, 121, 86, 52, 49)
+
+weight[c(1, 3, 6)]
+
+weight[c(TRUE, FALSE, TRUE, 
+         FALSE, FALSE, TRUE)]
+
+weight[weight > 70]
+
+## weight > 70 
+## weigth < 60
+
+weight < 60
+weight > 70
+
+## OR: |
+## AND: &
+## NOT: !
+
+weight[weight < 60 | weight > 70]
+
+weight[!(weight < 60 | weight > 70)]
+
+weight[weight >= 60 & weight <= 70]
+
+mol2 <- c(molecules, "dna", 
+          "metabolite")
+
+mol2 == "dna"
+
+which(mol2 == "dna")
+
+sum(mol2 == "dna")
+
+mol2[mol2 == "dna"]
+
+## Ex: create a new vector nucl
+## containing nucleic acids
+
+sel <- mol2 == "dna" | mol2 == "rna"
+mol2[sel]
+
+sel2 <- mol2 %in% c("dna", "rna")
+mol2[sel2]
+
+## Ex: calculate the proportion 
+## of dna in mol2
+
+sum(mol2 == "dna")/length(mol2)
+
+table(mol2 == "dna")
+
+table(c(1, 1, 2, 3, 1, 4, 5))
+
+## -----------------------
+## Names
+
+names(weight)
+
+names(weight) <- letters[1:6]
+
+weight
+names(weight)
+
+## How much do 'b' and 'd' weight?
+## Hints: 
+## - names are character: "b" "d"
+## - you can create a vector or 
+##   names
+
+weight[c("b", "d")]
+weight
+
+## missing values
+x <- c(1, 3, 5, NA, 5)
+x
+
+x <- x[!is.na(x)]
+mean(x)
+
+na.omit(x)
+
+x[complete.cases(x)]
+
+## start 16:53
 
 
 
