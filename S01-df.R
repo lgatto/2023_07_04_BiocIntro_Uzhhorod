@@ -124,8 +124,8 @@ m[1:2, 2:3]
 ##----------------------------
 ## export tables
 
+rna2 <- head(rna)
 
-
-
-
+write.csv(rna2, 
+          "results/res2.csv")
 
