@@ -244,5 +244,43 @@ rna_wide |>
   )
 
 
+## Ex:
 
+rna |> 
+  filter(chromosome_name %in% 
+           c("X", "Y")) |> 
+  group_by(chromosome_name, sex) |> 
+  summarise(mean_expr = 
+              mean(expression)) |> 
+  pivot_wider(names_from = sex,
+              values_from = mean_expr)
+
+
+rna_time <- rna |> 
+  group_by(gene, time) |> 
+  summarise(mean_exprs = 
+              mean(expression)) |> 
+  pivot_wider(names_from = time, 
+              values_from = mean_exprs)
+
+rna_time |> 
+  select(`4`)
+
+rna_time <- rna |> 
+  group_by(gene, time) |> 
+  summarise(mean_exprs = 
+              mean(expression)) |> 
+  pivot_wider(names_from = time, 
+              values_from = mean_exprs) |> 
+  rename(time0 = `0`,
+         time4 = `4`,
+         time8 = `8`) |> 
+  ungroup()
+
+rna_time  |> 
+  mutate(lfc_8_vs_0 = log2(time8 / time0), 
+         lfc_8_vs_4 = log2(time8 / time4)) |> 
+  pivot_longer(starts_with("lfc"), 
+               names_to = "times", 
+               values_to = "lfc")
 
