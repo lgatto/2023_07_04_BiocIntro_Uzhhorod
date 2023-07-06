@@ -181,9 +181,18 @@ rna |>
 ## Store the genes names in a vector.
 ## Hint: use arrange()
 
+selected_genes <- select(rna_fc, 1, 6) |> 
+  arrange(desc(lfc8)) |> 
+  head(n = 10) |> 
+  pull(gene)
+
+selected_genes
+
 ## Create a new rna_subset tibble
 ## for the 10 genes of interest.
 
+rna_subset <- rna |> 
+  filter(gene %in% selected_genes)
 
 
 
