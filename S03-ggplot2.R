@@ -192,7 +192,20 @@ selected_genes
 ## for the 10 genes of interest.
 
 rna_subset <- rna |> 
-  filter(gene %in% selected_genes)
+  filter(gene %in% selected_genes) |> 
+  mutate(expression = 
+           log(expression + 1))
+
+## Calculate mean expression
+## by gene and time point
+
+rna_subset |> 
+  group_by(gene, time) |> 
+  summarise(mexp = mean(expression))
+
+
+
+
 
 
 
