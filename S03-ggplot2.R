@@ -199,19 +199,117 @@ rna_subset <- rna |>
 ## Calculate mean expression
 ## by gene and time point
 
-rna_subset |> 
+mean_exp_time <- rna_subset |> 
   group_by(gene, time) |> 
   summarise(mexp = mean(expression))
 
+ggplot(mean_exp_time, 
+       aes(x = time, 
+           y = mexp,
+           group = gene)) +
+  geom_line()
+
+
+ggplot(mean_exp_time, 
+       aes(x = time, 
+           y = mexp,
+           group = gene,
+           colour = gene)) +
+  geom_line()
+
+ggplot(mean_exp_time, 
+       aes(x = time, 
+           y = mexp,
+           colour = gene)) +
+  geom_line()
+
+## facetting
+
+ggplot(mean_exp_time, 
+       aes(x = time, 
+           y = mexp,
+           colour = gene)) +
+  geom_line() +
+  facet_wrap(~ gene)
+
+
+ggplot(mean_exp_time, 
+       aes(x = time, 
+           y = mexp)) +
+  geom_line() +
+  facet_wrap(~ gene,
+             scales = "free_y")
 
 
 
+mean_exp_time_sex <- rna_subset |> 
+  group_by(gene, time, sex) |> 
+  summarise(mexp = mean(expression))
 
 
+ggplot(mean_exp_time_sex, 
+       aes(x = time, 
+           y = mexp,
+           colour = sex)) +
+  geom_line() +
+  facet_wrap(~ gene)
 
+ggplot(mean_exp_time_sex, 
+       aes(x = time, 
+           y = mexp,
+           colour = sex)) +
+  geom_line() +
+  facet_grid(gene ~ sex)
 
+p3 <- ggplot(mean_exp_time_sex, 
+       aes(x = time, 
+           y = mexp,
+           colour = sex)) +
+  geom_line() +
+  facet_grid(sex ~ gene)
 
+rna_by_chromosome <- rna |> 
+  group_by(time, chromosome_name) |> 
+  summarise(
+    mean_exp = mean(log(expression + 1))
+  ) 
 
+p1 <- ggplot(rna_by_chromosome,
+       aes(x = time,
+           y = mean_exp)) +
+  geom_line() +
+  facet_wrap(~ chromosome_name,
+             scales = "free_y")
 
+rna_by_chromosome_sex <- rna |> 
+  group_by(time, sex, chromosome_name) |> 
+  summarise(
+    mean_exp = mean(log(expression + 1))
+  ) 
+
+p2 <- ggplot(rna_by_chromosome_sex,
+       aes(x = time,
+           y = mean_exp,
+           colour = sex)) +
+  geom_line() +
+  facet_wrap(~ chromosome_name,
+             scales = "free_y")
+
+library(patchwork)
+
+p1 + p2
+
+p1 / p2
+
+(p1 + p2) / p3
+
+dev.new()
+
+p1
+
+ggsave("figs/fig1.pdf")
+
+ggsave("figs/fig2.png", 
+       p2)
 
 
