@@ -176,5 +176,20 @@ rna |>
 ## How to re-order the columns according
 ## to time? Winner gets a lollipop!
 
+## Find 10 genes with the highest 
+## 8 vs. 0 log fold-changes 
+## Store the genes names in a vector.
+## Hint: use arrange()
+
+## Create a new rna_subset tibble
+## for the 10 genes of interest.
+
+
+
+
+
+
+
+
 
 
