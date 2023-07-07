@@ -48,9 +48,7 @@ prots <- rowData(cptac_se) |>
 prots
 ```
 
-
-## Visualisation
-
+## Prepare visualisation
 
 ```{r}
 x <- assay(cptac_se) |> 
@@ -73,9 +71,25 @@ cd <- colData(cptac_se) |>
 ```
 
 ```{r}
-full_join(x, 
-          select(cd, -nNA)) |> 
-  View()
+x <- full_join(x, 
+          select(cd, -nNA)) 
 ```
 
+## Visualisation
+
+```{r}
+ggplot(x, 
+       aes(x = rowname,
+           y = intensity,
+           colour = group)) +
+  geom_boxplot() +
+  scale_y_log10() +
+  facet_wrap(~ Proteins)
+```
+
+## Session information
+
+```{r}
+sessionInfo()
+```
 
