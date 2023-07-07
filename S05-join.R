@@ -77,4 +77,3 @@ anyNA(rna_mini)
 ## More about joins:
 ## https://uclouvain-cbio.github.io/WSBIM1207/sec-join.html
 
-
