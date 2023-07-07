@@ -1,0 +1,81 @@
+---
+title: "CPTAC analyses"
+author: "Laurent"
+date: "2023-07-07"
+output: html_document
+---
+
+## Introduction
+
+Load required packages
+
+```{r pkg, message = FALSE}
+library(SummarizedExperiment)
+library(tidyverse)
+library(rWSBIM1322)
+```
+
+Load the data
+
+```{r}
+data(cptac_se)
+cptac_se
+```
+
+## Description
+
+We have 6 samples in 2 groups, 6A and 6B.
+
+```{r}
+colData(cptac_se)
+```
+
+Peptides and proteins.
+
+```{r}
+head(rowData(cptac_se))
+```
+
+
+## Select proteins
+
+```{r}
+prots <- rowData(cptac_se) |> 
+  as_tibble() |> 
+  dplyr::count(Proteins) |> 
+  filter(n >= 15) |> 
+  pull(Proteins)
+prots
+```
+
+
+## Visualisation
+
+
+```{r}
+x <- assay(cptac_se) |> 
+  as.data.frame() |> 
+  rownames_to_column("Sequence") |> 
+  full_join(as_tibble(rowData(cptac_se))) |> 
+  filter(Proteins %in% prots) |> 
+  pivot_longer(
+    names_to = "rowname",
+    values_to = "intensity", 
+    starts_with("6")
+  )
+```
+
+
+```{r}
+cd <- colData(cptac_se) |> 
+  as.data.frame() |> 
+  rownames_to_column()
+```
+
+```{r}
+full_join(x, 
+          select(cd, -nNA)) |> 
+  View()
+```
+
+
