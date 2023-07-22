@@ -4,7 +4,7 @@
 - https://www.bds3.org/
 
 ## Teaching material: 
-- [Introduction to data analysis with R/Rstudio, tidyverse and Bioconductor](https://github.com/carpentries-incubator/bioc-intro)
+- [Introduction to data analysis with R/Rstudio, tidyverse and Bioconductor](https://carpentries-incubator.github.io/bioc-intro/)
 - [Interactive (web) applications with shiny](https://lgatto.github.io/interactive-vis-intro/)
 - [Proteomics and mass spectrometry—basics of data analysis](https://rformassspectrometry.github.io/docs) - [slides](https://bit.ly/CSAMA2023)
 
